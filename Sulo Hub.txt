@@ -1,0 +1,92 @@
+if game.PlaceId == 8750997647 then
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Sulo Hub | Tapping Legends X", HidePremium = true,IntroEnabled = false, IntroText = "Sulo Hub", SaveConfig = true, ConfigFolder = "HubConfig"})
+
+--Values
+_G.autoTap = true
+_G.autoRebirth = true
+_G.autoHatch = true
+_G.selectEgg = "Basic Egg"
+
+
+--Functions
+
+function autoTap()
+    while _G.autoTap == true do
+        game:GetService("ReplicatedStorage").Remotes.Tap:FireServer()
+        wait(.00000001)
+    end
+   end
+
+function autoRebirth()
+  while _G.autoRebirth == true do
+    game:GetService("ReplicatedStorage").Remotes.Rebirth:FireServer(1)
+    wait (.00000001)
+   end
+  end
+
+function autoHatch()
+	while _G.autoHatch == true do
+	game:GetService("ReplicatedStorage").Remotes.BuyEgg:InvokeServer(_G.selectEgg,1)
+	wait (.00000001)
+end
+end
+-- Tabs
+local FarmTab = Window:MakeTab({
+	Name = "AutoFarm",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local EggsTab = Window:MakeTab({
+	Name = "Eggs",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+-- Toggles
+FarmTab:AddToggle({
+	Name = "Auto Tap",
+	Default = false,
+	Callback = function(Value)
+		_G.autoTap = Value
+        autoTap()
+    end  
+})
+
+FarmTab:AddToggle({
+	Name = "Auto Rebirth",
+	Default = false,
+	Callback = function(Value)
+		_G.autoRebirth = Value
+        autoRebirth()
+    end  
+})
+
+EggsTab:AddToggle({
+	Name = "Auto Hatch",
+	Default = false,
+	Callback = function(Value)
+        _G.autoHatch = Value
+        autoHatch()
+    end
+})
+
+
+-- Dropdowns
+
+EggsTab:AddDropdown({
+	Name = "Select Egg",
+	Default = "Basic Egg",
+	Options = {"Basic Egg", "Rare Egg", "Desert Egg", "Winter Egg", "Lava Egg"},
+	Callback = function(Value)
+        _G.selectEgg = Value
+        print(_G.selectEgg)
+	end
+})
+
+
+
+
+end
+OrionLib:Init()
