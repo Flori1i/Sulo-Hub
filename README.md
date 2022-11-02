@@ -1,2 +1,2 @@
 # Sulo-Hub
-Roblox Scrip's Made By "Sulo"
+Roblox Script Made By "Sulo"
